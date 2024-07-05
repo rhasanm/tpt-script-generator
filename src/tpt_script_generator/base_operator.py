@@ -1,7 +1,5 @@
+from abc import ABC
 from tpt_script_generator.enums import AttributeType
-
-from abc import ABC, abstractmethod
-
 
 class Operator(ABC):
     def __init__(self, operator_name, operator_type):
@@ -18,6 +16,15 @@ class Operator(ABC):
         self.attributes[attr_key] = (attr_type.value, attr_value)
         return self
 
-    @abstractmethod
     def build(self):
-        pass
+        definition = f"    DEFINE OPERATOR {self.operator_name}\n"
+        definition += f"    TYPE {self.operator_type}\n"
+        if self.schema_name:
+            definition += f"    SCHEMA {self.schema_name}\n"
+        if self.attributes:
+            definition += "    ATTRIBUTES\n    (\n"
+            for attr_key, (attr_type, attr_value) in self.attributes.items():
+                definition += f"        {attr_type} {attr_key} = '{attr_value}',\n"
+            definition = definition.rstrip(",\n")  # Remove the trailing comma
+            definition += "\n    );\n"
+        return definition

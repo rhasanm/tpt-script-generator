@@ -1,6 +1,5 @@
 from tpt_script_generator.enums import AttributeType
-from tpt_script_generator.tpt_operator import Operator
-
+from tpt_script_generator.base_operator import Operator
 
 class DDLOperator(Operator):
     def __init__(self):
@@ -37,16 +36,3 @@ class DDLOperator(Operator):
     def with_log_sql(self, log_sql):
         self.with_attribute(AttributeType.VARCHAR, "LogSQL", log_sql)
         return self
-
-    def build(self):
-        definition = f"    DEFINE OPERATOR {self.operator_name}\n"
-        definition += f"    TYPE {self.operator_type}\n"
-        if self.schema_name:
-            definition += f"    SCHEMA {self.schema_name}\n"
-        if self.attributes:
-            definition += "    ATTRIBUTES\n    (\n"
-            for attr_key, (attr_type, attr_value) in self.attributes.items():
-                definition += f"        {attr_type} {attr_key} = '{attr_value}',\n"
-            definition = definition.rstrip(",\n")  # Remove the trailing comma
-            definition += "\n    );\n"
-        return definition
