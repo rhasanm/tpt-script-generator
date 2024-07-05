@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tpt-script-generator"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "U.N. Owen", email = "void@some.where" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/U.N. Owen/tpt-script-generator#readme"
+Issues = "https://github.com/U.N. Owen/tpt-script-generator/issues"
+Source = "https://github.com/U.N. Owen/tpt-script-generator"
+
+[tool.hatch.version]
+path = "src/tpt_script_generator/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/tpt_script_generator tests}"
+
+[tool.coverage.run]
+source_pkgs = ["tpt_script_generator", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/tpt_script_generator/__about__.py",
+]
+
+[tool.coverage.paths]
+tpt_script_generator = ["src/tpt_script_generator", "*/tpt-script-generator/src/tpt_script_generator"]
+tests = ["tests", "*/tpt-script-generator/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
