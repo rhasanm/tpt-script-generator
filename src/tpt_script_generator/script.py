@@ -55,4 +55,3 @@ class TPTScript:
     def save(self, filename):
         with open(filename, 'w') as file:
             file.write(self.build())
-        return self.script
