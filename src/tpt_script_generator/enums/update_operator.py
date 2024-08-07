@@ -63,3 +63,8 @@ class TraceLevel(Enum):
 class PauseAcq(Enum):
     YES = 'Yes'
     NO = 'No'
+
+class TimeZoneSessInfo(Enum):
+    LOCAL = 'LOCAL'
+    USER = 'USER'
+    PACIFIC = 'America Pacific'
