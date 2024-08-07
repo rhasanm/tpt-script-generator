@@ -3,7 +3,7 @@ from tpt_script_generator.script import TPTScript
 from tpt_script_generator.ddl_operator import DDLOperator
 from tpt_script_generator.step import Step
 
-class TestTPTScript(unittest.TestCase):
+class TestDDLTPTScript(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         
