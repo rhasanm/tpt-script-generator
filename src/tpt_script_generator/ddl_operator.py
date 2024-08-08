@@ -1,7 +1,7 @@
 from tpt_script_generator.base_operator import Operator
 from tpt_script_generator.enums import AttributeType
-from tpt_script_generator.enums import DataEncryptionOption
-from tpt_script_generator.enums import (
+from tpt_script_generator.enums.ddl_operator import (
+    DataEncryptionOption,
     LogSQLOption,
     RestartAtFirstDMLGroupOption,
     TraceLevelOption,

@@ -1,6 +1,7 @@
 from abc import ABC
 from tpt_script_generator.enums import AttributeType
 
+
 class Operator(ABC):
     def __init__(self, operator_name, operator_type):
         self.operator_name = operator_name
@@ -24,7 +25,9 @@ class Operator(ABC):
         if self.attributes:
             definition += "    ATTRIBUTES\n    (\n"
             for attr_key, (attr_type, attr_value) in self.attributes.items():
-                if attr_type != AttributeType.VARCHAR.value or attr_value.startswith("@"):
+                if attr_type != AttributeType.VARCHAR.value or attr_value.startswith(
+                    "@"
+                ):
                     definition += f"        {attr_type} {attr_key} = {attr_value},\n"
                 else:
                     definition += f"        {attr_type} {attr_key} = '{attr_value}',\n"
@@ -32,4 +35,3 @@ class Operator(ABC):
             definition = definition.rstrip(",\n")
             definition += "\n    );\n"
         return definition
-

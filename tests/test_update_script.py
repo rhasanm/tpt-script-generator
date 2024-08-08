@@ -2,16 +2,23 @@ import unittest
 from tpt_script_generator.script import TPTScript
 from tpt_script_generator.update_operator import UpdateOperator
 from tpt_script_generator.step import Step
-from tpt_script_generator.enums import (
-    LogonMech, LogSQL, NotifyMethod, NotifyLevel,
-    TraceLevel, TransformGroup, UnicodePassThrough,
-    ReplicationOverride, RoleName
+from tpt_script_generator.enums.update_operator import (
+    LogonMech,
+    LogSQL,
+    NotifyMethod,
+    NotifyLevel,
+    TraceLevel,
+    TransformGroup,
+    UnicodePassThrough,
+    ReplicationOverride,
+    RoleName,
 )
+
 
 class TestUpdateTPTScript(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        
+
     def test_script_generation_for_update_operator(self):
         builder = (
             TPTScript("LoadToTeradata")
@@ -80,7 +87,9 @@ class TestUpdateTPTScript(unittest.TestCase):
             )
             .with_step(
                 Step("Load_Data")
-                .add_operation("APPLY ('INSERT INTO ' || @TargetTable || ' VALUES (?, ?, ?);')")
+                .add_operation(
+                    "APPLY ('INSERT INTO ' || @TargetTable || ' VALUES (?, ?, ?);')"
+                )
                 .add_operation("TO OPERATOR (UpdateOperator)")
             )
             .build()
@@ -163,5 +172,6 @@ DESCRIPTION 'Load data into Teradata using Update operator'
 """
         self.assertEqual(builder, expected_script)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
