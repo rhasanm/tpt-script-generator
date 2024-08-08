@@ -1,12 +1,18 @@
 import unittest
 from tpt_script_generator.script import TPTScript
-from tpt_script_generator.ddl_operator import DDLOperator
+from tpt_script_generator.ddl_operator import (
+    DDLOperator,
+    DataEncryptionOption,
+    LogSQLOption,
+    TraceLevelOption,
+)
 from tpt_script_generator.step import Step
+
 
 class TestDDLTPTScript(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        
+
     def test_script_generation(self):
         builder = (
             TPTScript("LoadFromOracle")
@@ -28,13 +34,13 @@ class TestDDLTPTScript(unittest.TestCase):
             .with_operator(
                 DDLOperator()
                 .with_account_id("acctId")
-                .with_array()
                 .with_connect_string("connectionString")
-                .with_data_encryption("ON")
+                .with_data_encryption(DataEncryptionOption.ON)
                 .with_error_list("3807")
                 .with_logon_mech("logonMech")
                 .with_logon_mech_data("logonMechData")
-                .with_log_sql("Yes")
+                .with_log_sql(LogSQLOption.YES)
+                .with_trace_level(TraceLevelOption.CLI)
             )
             .with_step(
                 Step("CLEANUP")
@@ -75,13 +81,13 @@ DESCRIPTION 'Load data from Oracle using UnixODBC into Teradata'
     ATTRIBUTES
     (
         VARCHAR AccountId = 'acctId',
-        VARCHAR ARRAY = '',
         VARCHAR ConnectString = 'connectionString',
         VARCHAR DataEncryption = 'ON',
         VARCHAR ErrorList = '3807',
         VARCHAR LogonMech = 'logonMech',
         VARCHAR LogonMechData = 'logonMechData',
-        VARCHAR LogSQL = 'Yes'
+        VARCHAR LogSQL = 'Yes',
+        VARCHAR TraceLevel = 'CLI'
     );
 
     STEP CLEANUP
@@ -105,5 +111,6 @@ DESCRIPTION 'Load data from Oracle using UnixODBC into Teradata'
 """
         self.assertEqual(builder, expected_script)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

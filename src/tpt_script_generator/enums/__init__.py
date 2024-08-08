@@ -24,3 +24,12 @@ from tpt_script_generator.enums.update_operator import (
     TreatDBSRestartAsFatal,
     UnicodePassThrough,
 )
+
+from tpt_script_generator.enums.ddl_operator import (
+    TraceLevelOption,
+    RestartAtFirstDMLGroupOption,
+    DataEncryptionOption,
+    LogSQLOption,
+    TreatDBSRestartAsFatalOption,
+    UnicodePassThroughOption
+)
