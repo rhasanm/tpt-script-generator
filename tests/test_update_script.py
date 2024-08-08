@@ -67,7 +67,7 @@ class TestUpdateTPTScript(unittest.TestCase):
                 .with_tasmfastfail("YES")
                 .with_tenacity_hours(1)
                 .with_tenacity_sleep(10)
-                .with_tdp_id("TdpId")
+                .with_tdp_id("@TdpId")
                 .with_time_zone_sess_info("TimeZoneSessInfo")
                 .with_trace_level([TraceLevel.CLI, TraceLevel.PX])
                 .with_transform_group([TransformGroup.JSON, TransformGroup.ST_GEOMETRY])
@@ -141,7 +141,7 @@ DESCRIPTION 'Load data into Teradata using Update operator'
         VARCHAR TASMFASTFAIL = 'YES',
         INTEGER TenacityHours = 1,
         INTEGER TenacitySleep = 10,
-        VARCHAR TdpId = 'TdpId',
+        VARCHAR TdpId = @TdpId,
         VARCHAR TimeZoneSessInfo = 'TimeZoneSessInfo',
         VARCHAR_ARRAY TraceLevel = ['CLI', 'PX'],
         VARCHAR_ARRAY TransformGroup = ['JSON CHARACTER SET LATIN TD_JSON_VARCHAR', 'ST_GEOMETRY TD_GEO_VARCHAR'],
