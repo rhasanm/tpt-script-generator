@@ -24,8 +24,12 @@ class Operator(ABC):
         if self.attributes:
             definition += "    ATTRIBUTES\n    (\n"
             for attr_key, (attr_type, attr_value) in self.attributes.items():
-                definition += f"        {attr_type} {attr_key} = {attr_value},\n"
-            definition = definition.rstrip(",\n")  # Remove the trailing comma
+                if attr_type != AttributeType.VARCHAR.value or attr_value.startswith("@"):
+                    definition += f"        {attr_type} {attr_key} = {attr_value},\n"
+                else:
+                    definition += f"        {attr_type} {attr_key} = '{attr_value}',\n"
+
+            definition = definition.rstrip(",\n")
             definition += "\n    );\n"
         return definition
 
